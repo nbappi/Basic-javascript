@@ -1,6 +1,16 @@
-var firstObj = { fname : "Bob"};
-var secondObj = { lname : "Kenede" };
+var person = function(){
+	this.canCheck = true
+};
 
-secondObj.__proto__ = firstObj ;
+person.prototype.greeting = function(name){
+	if(this.canCheck){
+		console.log("Hi I am Bappi");
+	}
+};
 
-console.log(secondObj.isPrototypeOf(firstObj));
+var personObj = new person();
+console.log(personObj);     // return own object
+console.log(Object.getPrototypeOf(personObj));   // return a greeting object
+console.log(personObj.hasOwnProperty('canCheck'));   // true
+console.log(personObj.hasOwnProperty('greeting'));  // false
+personObj.greeting();
