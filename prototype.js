@@ -35,8 +35,15 @@ var employee = function(name, title){
 }
 
 employee.prototype = Object.create(body.prototype);
+employee.prototype.constructor = employee;
 
-var employeeObj = new employee('Nuruzzaman', "Software Engineer");
+employee.prototype.info = function(){
+	if(this.check){
+       console.log("Hi I am " + this.name + " as "+ this.title);
+	}
+}
+
+var employeeObj = new employee('Nuruzzaman', 'Software Engineer');
 employeeObj.info();
 
 console.log(Object.getPrototypeOf(employeeObj));  // Object
@@ -44,14 +51,55 @@ console.log(employeeObj.hasOwnProperty('info'));  // false
 
 console.log("---------------------------------------------------------");
 
-var customer = function(name , check ){
+var customer = function(name){
 	body.call(this);
 	this.name = name;
-	this.check = check;
 }; 
 
 customer.prototype = Object.create(body.prototype);
-var customerObj = new customer('Rahim customer', true );  // pass true or false ;;;;;  false = No data display, true = data display. 
-customerObj.info();
+
+var customerTrueObj = new customer('Rahim customer'); 
+customerTrueObj.info();  // data display. 
 
 
+console.log("............................................");
+
+var mike = function(name , status){
+	body.call(this);
+    this.name = name ;
+    this.check = status;
+};
+
+
+mike.prototype = Object.create(body.prototype);
+mike.prototype.constructor = mike;
+
+var mikeObjTrue = new mike("Mike", true);    // status true
+mikeObjTrue.info();    // display data
+
+var mikeObjFalse = new mike("Mude", false);
+mikeObjFalse.info();
+
+//   Object.prototype.__proto__
+
+console.log("................Object.prototype.__proto__  ...............")
+
+var shape = function(){
+
+};
+
+var p = {
+	a : function(){
+		console.log('aaa');
+	}
+};
+
+shape.prototype.__proto__ = p;
+
+var circle = new shape();
+
+circle.a();  // aaa
+
+console.log(shape.prototype == circle.__proto__);  // true
+
+console.log(shape.prototype, circle.__proto__);
